@@ -1,253 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Reset & Base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* Reset & Base */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f8f9fa;
-      color: #333333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+      body {
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
 
-    /* Container fixé au format 1080x1920 */
-    .screen-container {
-      width: 1080px;
-      height: 1920px;
-      background-color: #ffffff;
-      padding: 80px 60px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
+      /* Container fixé au format 1080x1920 */
+      .screen-container {
+        width: 1080px;
+        height: 1920px;
+        background-color: #ffffff;
+        padding: 80px 60px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
 
-    /* Titre principal */
-    h1 {
-      text-align: center;
-      font-size: 42px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 60px;
-    }
+      /* Titre principal */
+      h1 {
+        text-align: center;
+        font-size: 42px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 60px;
+      }
 
-    /* Liste des étapes */
-    .steps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      flex-grow: 1;
-    }
+      /* Liste des étapes */
+      .steps-list {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        flex-grow: 1;
+      }
 
-    /* Une étape (grille 2 colonnes) */
-    .step-item {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 40px;
-      align-items: center;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
-    }
+      /* Une étape (grille 2 colonnes) */
+      .step-item {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 40px;
+        align-items: center;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+      }
 
-    /* Contenu gauche (numéro + texte) */
-    .step-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+      /* Contenu gauche (numéro + texte) */
+      .step-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-    .step-number {
-      background-color: #1a2b4c;
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: bold;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      margin-bottom: 20px;
-    }
+      .step-number {
+        background-color: #1a2b4c;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: bold;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
 
-    .step-text {
-      font-size: 20px;
-      line-height: 1.5;
-      color: #4a5568;
-    }
+      .step-text {
+        font-size: 20px;
+        line-height: 1.5;
+        color: #4a5568;
+      }
 
-    .step-text p {
-      margin-bottom: 12px;
-    }
+      .step-text p {
+        margin-bottom: 12px;
+      }
 
-    .step-text p:last-child {
-      margin-bottom: 0;
-    }
+      .step-text p:last-child {
+        margin-bottom: 0;
+      }
 
-    .step-text strong {
-      color: #1a202c;
-    }
+      .step-text strong {
+        color: #1a202c;
+      }
 
-    .step-text .italic-note {
-      font-style: italic;
-      color: #718096;
-      font-size: 18px;
-    }
+      .step-text .italic-note {
+        font-style: italic;
+        color: #718096;
+        font-size: 18px;
+      }
 
-    /* Conteneur de l'image (droite) */
-    .step-image {
-      width: flex;
-      height: flex;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+      /* Conteneur de l'image (droite) */
+      .step-image {
+        width: flex;
+        height: flex;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
 
-    .step-image img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
+      .step-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
 
-    .unoffical-disclaimer {
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
-      font-size: 16px;
-      color: #a0aec0;
-      font-style: italic;
-    }
-  </style>
-</head>
-<body>
+      .unoffical-disclaimer {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        font-size: 16px;
+        color: #a0aec0;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-container">
+      <h1>Emprunter une batterie externe en 5 étapes</h1>
 
-  <div class="screen-container">
-    <h1>Emprunter une batterie externe en 5 étapes</h1>
-
-    <div class="steps-list">
-
-      <!-- Étape 1 -->
-      <div class="step-item">
-        <div class="step-content">
-          <div class="step-number">1</div>
-          <div class="step-text">
-            <p><strong>Pour emprunter une batterie externe :</strong></p>
-            <p>Ouvrez l'appareil photo de votre smartphone et scannez le QR code affiché sur le distributeur de batteries.</p>
+      <div class="steps-list">
+        <!-- Étape 1 -->
+        <div class="step-item">
+          <div class="step-content">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <p><strong>Pour emprunter une batterie externe :</strong></p>
+              <p>
+                Ouvrez l'appareil photo de votre smartphone et scannez le QR
+                code affiché sur le distributeur de batteries.
+              </p>
+            </div>
+          </div>
+          <div class="step-image">
+            <img src="etape1.png" alt="Scanner le QR code" />
           </div>
         </div>
-        <div class="step-image">
-          <img src="etape1.png" alt="Scanner le QR code">
+
+        <!-- Étape 2 -->
+        <div class="step-item">
+          <div class="step-content">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <p>
+                Une fois redirigé vers la page internet, munissez-vous de votre
+                <strong>identifiant et votre mot de passe Monlycée.net</strong>
+                pour vous connecter et obtenir une batterie.
+              </p>
+            </div>
+          </div>
+          <div class="step-image">
+            <img src="etape2.png" alt="Connexion Monlycée.net" />
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="step-item">
+          <div class="step-content">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <p>
+                <strong
+                  >Instantanément, les batteries disponibles à l'emprunt
+                  s'affichent en « vert ».</strong
+                >
+                Il s'agit des batteries disposant d'une charge minimale de 75%.
+                Cliquez ensuite sur le bouton
+                <strong>« Obtenir une batterie »</strong>.
+              </p>
+              <p class="italic-note">
+                Les batteries signalées en rouge correspondent aux batteries
+                ayant une charge inférieure à 75% et ne peuvent être empruntées.
+              </p>
+            </div>
+          </div>
+          <div class="step-image">
+            <img src="etape3.png" alt="Batteries disponibles" />
+          </div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="step-item">
+          <div class="step-content">
+            <div class="step-number">4</div>
+            <div class="step-text">
+              <p>
+                <strong
+                  >Au clic « Obtenir une batterie », le distributeur procède à
+                  la recherche d'une batterie disponible et la libère. Récupérez
+                  alors la batterie externe pour recharger votre
+                  ordinateur.</strong
+                >
+              </p>
+              <p>
+                Le numéro de série de la batterie concernée s'affiche ainsi que
+                sa date d'emprunt.
+              </p>
+            </div>
+          </div>
+          <div class="step-image">
+            <img src="etape4.png" alt="Libération de la batterie" />
+          </div>
+        </div>
+
+        <!-- Étape 5 -->
+        <div class="step-item">
+          <div class="step-content">
+            <div class="step-number">5</div>
+            <div class="step-text">
+              <p><strong>Votre ordinateur est chargé !</strong></p>
+              <p>
+                <strong>
+                  Restituez la batterie dans un emplacement libre du
+                  distributeur d'origine.
+                </strong>
+              </p>
+            </div>
+          </div>
+          <div class="step-image">
+            <img src="etape5.png" alt="Restitution de la batterie" />
+          </div>
         </div>
       </div>
 
-      <!-- Étape 2 -->
-      <div class="step-item">
-        <div class="step-content">
-          <div class="step-number">2</div>
-          <div class="step-text">
-            <p>Une fois redirigé vers la page internet, munissez-vous de votre <strong>identifiant et votre mot de passe Monlycée.net</strong> pour vous connecter et obtenir une batterie.</p>
-          </div>
-        </div>
-        <div class="step-image">
-          <img src="etape2.png" alt="Connexion Monlycée.net">
-        </div>
+      <div class="unoffical-disclaimer">
+        <a href="https://github.com/NowYouKnow-nYk/ykw.doume.be">
+          Site non officiel
+        </a>
       </div>
-
-      <!-- Étape 3 -->
-      <div class="step-item">
-        <div class="step-content">
-          <div class="step-number">3</div>
-          <div class="step-text">
-            <p><strong>Instantanément, les batteries disponibles à l'emprunt s'affichent en « vert ».</strong> Il s'agit des batteries disposant d'une charge minimale de 75%. Cliquez ensuite sur le bouton <strong>« Obtenir une batterie »</strong>.</p>
-            <p class="italic-note">Les batteries signalées en rouge correspondent aux batteries ayant une charge inférieure à 75% et ne peuvent être empruntées.</p>
-          </div>
-        </div>
-        <div class="step-image">
-          <img src="etape3.png" alt="Batteries disponibles">
-        </div>
-      </div>
-
-      <!-- Étape 4 -->
-      <div class="step-item">
-        <div class="step-content">
-          <div class="step-number">4</div>
-          <div class="step-text">
-            <p><strong>Au clic « Obtenir une batterie », le distributeur procède à la recherche d'une batterie disponible et la libère. Récupérez alors la batterie externe pour recharger votre ordinateur.</strong></p>
-            <p>Le numéro de série de la batterie concernée s'affiche ainsi que sa date d'emprunt.</p>
-          </div>
-        </div>
-        <div class="step-image">
-          <img src="etape4.png" alt="Libération de la batterie">
-        </div>
-      </div>
-
-      <!-- Étape 5 -->
-      <div class="step-item">
-        <div class="step-content">
-          <div class="step-number">5</div>
-          <div class="step-text">
-            <p><strong>Votre ordinateur est chargé !</strong></p>
-            <p><strong>Restituez la batterie dans un emplacement libre du distributeur d'origine.</strong></p>
-          </div>
-        </div>
-        <div class="step-image">
-          <img src="etape5.png" alt="Restitution de la batterie">
-        </div>
-      </div>
-
     </div>
 
-    <div class="unoffical-disclaimer">
-      <a href="https://github.com/NowYouKnow-nYk/ykw.doume.be">
-        Site non officiel
-      </a>
-    </div>
-  </div>
+    <script>
+      function updateTimeBasedBrightness() {
+        const hour = new Date().getHours();
+        let brightness = 1;
 
-  <script>
-    function updateTimeBasedBrightness() {
-      const hour = new Date().getHours();
-      let brightness = 1;
+        if (hour >= 18 || hour < 7) {
+          brightness = 0.1;
+        } else if (hour >= 7 && hour <= 8) {
+          brightness = 0.4;
+        }
 
-      if (hour >= 18 || hour < 7) {
-        brightness = 0.1;
-      } 
-      else if (hour >= 7 || hour <= 8) {
-        brightness = 0.4;
-      }
-      else {
-        brightness = 0.8;
+        document.body.style.filter = `brightness(${brightness})`;
       }
 
-      document.body.style.filter = `brightness(${brightness})`;
-    }
-
-    updateTimeBasedBrightness();
-    setInterval(updateTimeBasedBrightness, 5000);
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
-
-    setInterval(() => {
-      if (navigator.onLine) {
-        window.location.reload();
+      updateTimeBasedBrightness();
+      setInterval(updateTimeBasedBrightness, 10000);
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
       }
-    }, 10000);
-  </script>
-</body>
+
+      setInterval(() => {
+        if (navigator.onLine) {
+          window.location.reload();
+        }
+      }, 120000);
+    </script>
+  </body>
 </html>
