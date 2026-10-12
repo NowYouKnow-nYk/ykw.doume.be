@@ -257,8 +257,8 @@
         let brightness = 1;
 
         if (hour >= 18 || hour < 7) {
-          // enlevé car il pausait des problèmes
-          // if (hasFully) fully.turnScreenOff();
+          // Remis pour des tests, et voir si l'erreur était humaine ou scriptée
+          if (hasFully) fully.turnScreenOff();
           brightness = 0.1;
         } else if (hour === 7) {
           if (hasFully) fully.turnScreenOn();
@@ -295,15 +295,86 @@
     </script>
 
     <script>
+      const api_url = "https://api.doume.be/";
+
+      // Heure d'envoi / de refresh quotidien
+      const api_hour = 7;
+      const api_minute = 0;
+      const RETRY_DELAY = 10 * 60 * 1000;
+
+      // Date locale au format yy-mm-dd
+      function localDate() {
+        const d = new Date();
+        const p = (n) => String(n).padStart(2, "0");
+        return `${String(d.getFullYear()).slice(2)}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+      }
+
+      function timePassed() {
+        const n = new Date();
+        return n.getHours() > api_hour || (n.getHours() === api_hour && n.getMinutes() >= api_minute);
+      }
+
+      async function postData(url) {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { From: "FullyKiosk" },
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+      }
+
+      let sending = false;
+      let lastAttempt = 0;
+
+      // force = true : test manuel depuis la console (sendDailyReport(true))
+      async function sendDailyReport(force = false) {
+        if (sending) return;
+
+        const today = localDate();
+        if (!force) {
+          if (!timePassed()) return;
+          if (localStorage.getItem("last_report") === today) return;
+          if (Date.now() - lastAttempt < RETRY_DELAY) return;
+        }
+
+        sending = true;
+        lastAttempt = Date.now();
+        try {
+          const level = typeof fully !== "undefined" ? fully.getBatteryLevel() : "Null";
+          const payload = "var['settings']['battery']['level']['" + level + "']+=1";
+          await postData(api_url + "kiosk_" + today + "?payload=" + encodeURIComponent(payload));
+          if (!force) localStorage.setItem("last_report", today);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          sending = false;
+        }
+      }
+
+      sendDailyReport();
+      setInterval(sendDailyReport, 60 * 1000);
+    </script>
+
+    <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
       }
 
-      setInterval(() => {
-        if (isOnline) {
+      // Si la page est chargée après 7h00, elle est déjà "fraîche" pour aujourd'hui
+      var now = new Date();
+      if (now.getHours() > api_hour || (now.getHours() === api_hour && now.getMinutes() >= api_minute)) {
+        localStorage.setItem("last_reload", now.toDateString());
+      }
+
+      setInterval(function() {
+        var now = new Date();
+        var passed = now.getHours() > api_hour || (now.getHours() === api_hour && now.getMinutes() >= api_minute);
+
+        if (passed && localStorage.getItem("last_reload") !== now.toDateString() && window.isOnline) {
+          localStorage.setItem("last_reload", now.toDateString());
           window.location.reload();
         }
-      }, 120000);
+      }, 1000);
     </script>
   </body>
 </html>
