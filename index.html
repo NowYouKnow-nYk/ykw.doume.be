@@ -319,7 +319,7 @@
         </div>
       </div>
 
-      <div class="unoffical-disclaimer">
+      <div class="unoffical-disclaimer" id="unoffical-disclaimer">
         <a href="https://github.com/NowYouKnow-nYk/ykw.doume.be">
           Site non officiel
         </a>
@@ -344,6 +344,14 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const disclaimer = document.getElementById("unoffical-disclaimer");
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("t")) {
+        disclaimer.textContent = urlParams.get("t");
+      }
+    </script>
 
     <!--
         https://www.fully-kiosk.com/en/#websiteintegration
