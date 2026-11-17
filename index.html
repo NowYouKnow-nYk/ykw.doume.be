@@ -349,7 +349,7 @@
       const disclaimer = document.getElementById("unoffical-disclaimer");
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get("t")) {
-        disclaimer.textContent = urlParams.get("t");
+        disclaimer.innerHTML = `<a href="https://github.com/NowYouKnow-nYk/ykw.doume.be">${urlParams.get("t")}</a>`;
       }
     </script>
 
